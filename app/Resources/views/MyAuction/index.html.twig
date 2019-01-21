@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1> Moje aukcje </h1>
+    <div class="row">
+        {% for auction in auctions %}
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <div class="card-body bg-light">
+                        <h4 class="card-title"><a href="{{ url('my_auction_details', {"id": auction.id}) }}">{{ auction.title }}</a></h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ auction.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cena kup teraz <strong>{{ auction.price }} zł</strong></li>
+                        <li class="list-group-item">Cena wywoławcza <strong>{{ auction.startingPrice }} zł</strong></li>
+                        <li class="list-group-item">Aukcja kończy się {{ auction.expiresAt | date("Y-m-d H:i:s") }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="d-flex ml-auto mr-auto mt-5 mb-5">
+                <div class="alert alert-warning" role="alert">
+                    Niestety nie ma aktywnych aukcji.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

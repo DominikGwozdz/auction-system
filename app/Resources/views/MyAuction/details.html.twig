@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card mb-2">
+        <div class="card-body bg-light">
+            <h4 class="card-title"><a href="{{ url('auction_details', {"id": auction.id}) }}">{{ auction.title }}</a></h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ auction.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cena kup teraz <strong>{{ auction.price }} zł</strong></li>
+            <li class="list-group-item">Cena wywoławcza <strong>{{ auction.startingPrice }} zł</strong></li>
+            <li class="list-group-item">Aukcja kończy się {{ auction.expiresAt | date("Y-m-d H:i:s") }}</li>
+        </ul>
+
+
+    </div>
+    <div class="card mb-2">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light"><strong>Oferty</strong></li>
+            {% for offer in auction.offers %}
+                <li class="list-group-item border-warning">Oferta {{ offer.price }} zł, złożona {{ offer.createdAt | date("Y-m-d H:i:s") }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <a class="btn btn-outline-primary float-left" href="{{ url('auction_index') }}">Powrót</a>
+    <a class="btn btn-outline-secondary float-left" href="{{ url('my_auction_edit', {"id": auction.id}) }}">Edytuj</a>
+    {{ form_start(deleteForm, {"attr": {"class": "float-left mr-1"}}) }}
+        {{ form_widget(deleteForm.submit, {"attr": {"class": "btn btn-outline-warning"}}) }}
+        {{ form_rest(deleteForm) }}
+    {{ form_end(deleteForm) }}
+
+    {{ form_start(finishForm, {"attr": {"class": "float-left ml-1 mr-1"}}) }}
+        {{ form_widget(finishForm.submit, {"attr": {"class": "btn btn-outline-danger"}}) }}
+        {{ form_rest(finishForm) }}
+    {{ form_end(finishForm) }}
+
+    <div class="clearfix"></div>
+
+{% endblock %}
+

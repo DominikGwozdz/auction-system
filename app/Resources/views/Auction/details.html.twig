@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card mb-2">
+        <div class="card-body bg-light">
+            <h4 class="card-title"><a href="{{ url('auction_details', {"id": auction.id}) }}">{{ auction.title }}</a></h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ auction.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cena kup teraz <strong>{{ auction.price }} zł</strong></li>
+            <li class="list-group-item">Cena wywoławcza <strong>{{ auction.startingPrice }} zł</strong></li>
+            <li class="list-group-item">Aukcja kończy się {{ auction.expiresAt | date("Y-m-d H:i:s") }}</li>
+        </ul>
+
+
+    </div>
+    <div class="card mb-2">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-light"><strong>Oferty</strong></li>
+            {% for offer in auction.offers %}
+                <li class="list-group-item border-warning">Oferta {{ offer.price }} zł, złożona {{ offer.createdAt | date("Y-m-d H:i:s") }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if is_granted("ROLE_USER") %}
+    <div class="card mb-2 d-flex flex-row p-3">
+        {{ form_start(buyForm, {"attr": {"class": "float-left ml-1 mr-1"}}) }}
+        {{ form_widget(buyForm.submit, {"attr": {"class": "btn btn-outline-success"}}) }}
+        {{ form_rest(buyForm) }}
+        {{ form_end(buyForm) }}
+
+
+        {{ form_start(bidForm, {"attr": {"novalidate": "novalidate", "class": "d-flex"}}) }}
+                {{ form_widget(bidForm.price) }}
+                {{ form_widget(bidForm.submit) }}
+            {{ form_rest(bidForm) }}
+        {{ form_end(bidForm) }}
+
+    </div>
+    {% endif %}
+
+    <a class="btn btn-outline-primary" href="{{ url('auction_index') }}">Powrót</a>
+
+
+
+
+
+    <div class="clearfix"></div>
+
+    {% if not is_granted("ROLE_USER") %}
+        <div class="alert alert-danger mt-1">
+            Aby móc zakupić produkt, należy najpierw się zalogować
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+

@@ -1,0 +1,12 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <h3>Witaj!</h3>
+    <p>Jeśli chcesz dodać aukcję wejdź pod ten <a href="{{ url('my_auction_add') }}">link</a></p>
+    <p>Jeśli chcesz zobaczyć swoje aukcje wejdź pod ten <a href="{{ url('my_auction_index') }}">link</a></p>
+    {% if targetUrl %}
+    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+{% endblock fos_user_content %}
