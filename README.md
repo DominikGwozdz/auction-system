@@ -6,7 +6,11 @@ Version Symfony 3.4
 #How to install auction-system
 
 * Clone directory
-* composer install
+
+Type
+```
+composer install
+```
 
 When prompt about mailer_user type (important!): 
 ```
@@ -21,7 +25,6 @@ bin/console doctrine:database:create
 ```
 bin/console doctrine:schema:update --force
 ```
-
 ##Ready to go
 ###run directory web in your web browser
 
