@@ -1,13 +1,13 @@
 Symfony Standard Edition
 ========================
 
-Version Symfony 3.4
+Version Symfony 3.4.21
 
-#How to install auction-system
+# How to install auction-system
 
-* Clone directory
+* Clone repository
 
-Type
+Type in root directory
 ```
 composer install
 ```
@@ -25,7 +25,7 @@ bin/console doctrine:database:create
 ```
 bin/console doctrine:schema:update --force
 ```
-##Ready to go
-###run directory web in your web browser
+## Ready to go
+### run directory web in your web browser
 
-####System is in Polish Language (not translations)
+#### System is in Polish Language (no translations used)
